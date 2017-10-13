@@ -1,0 +1,49 @@
+body,html {
+	background-image: url(index.jpg);
+	height:100%;
+	width:100%;
+	background-size: cover;	
+	overflow:hidden;
+}
+
+#submit {
+	 margin-top: 6px;
+	 height: 30px;
+	 width: 60% !important;
+	 border:none;
+	 color: #74AFAD;
+	 background-color: rgba(0,0,0,0.4);
+	 box-shadow: 0 0 0 1px;
+}
+
+#user {
+   margin-top:80px;
+   height:20px;
+   border:solid 1px #fff;
+   background-color: transparent;
+   color:#fff;
+   border-radius:2px;
+   width: 60%;
+
+}
+#password {
+	margin-top:15px;
+	height:20px;
+	background-color: transparent;
+	border:solid 1px #fff;
+	color:#fff;
+	font-size:12px;
+	border-radius:2px;
+	width: 60%;
+	/*padding-left:0.5px;*/
+}
+#developer {
+	margin-top: 30px;
+	color: white;
+}
+#header {
+	margin-top: 20px;
+	font-size: 15px;
+	color: white;
+	font-weight: bold;
+}

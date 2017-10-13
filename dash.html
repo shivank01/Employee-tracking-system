@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="geo.js"></script>
+<script src="lib/alertify.min.js"></script>
+<link rel="stylesheet" href="themes/alertify.core.css" />
+<link rel="stylesheet" href="themes/alertify.default.css" />
+	<title></title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#timeout,#createTable,#insert").hide();
+			$("#createTable").click();
+			var value = window.localStorage.getItem('userid');
+			var value2 = atob(window.localStorage.getItem('username'));
+			if(value != null) {
+			var ti = window.localStorage.getItem('ti');
+			if(ti != null) {
+			 var t = ti;
+			} else{
+				alertify.prompt(value2+' '+'For Auto tracking, you must set time(second) to initiate tracking.'+'<br>'+'You can change it next time..',function(e,value){
+				if($.trim(value).length > 0) {
+
+					var t = btoa(value+"000");
+					window.localStorage.setItem('ti',t);
+					window.localStorage.setItem('tit',value);
+				} else {
+					alertify.error("you haven't set time");
+					setTimeout(function(){
+						window.location.href="dash.html";
+					})
+				}
+			})
+			}
+				setTimeout(function(){
+					$("#createTable").click();
+				},2000)
+$("#atrack").click(function(){
+			$("#atrack,#track").hide();	
+			var ti = (window.localStorage.getItem('tit'));
+			$("#pid").append("Your cellphone's location is tracked in every"+" "+ti+" "+"second.");
+	$("#timeout").click();
+	alertify.success("Your location will be tracked in every"+" "+ti+" "+"second..");
+})
+
+$("#timeout").click(function(){
+	var t = atob(window.localStorage.getItem('ti'));
+	setInterval(function(){
+		var date = new Date();
+  var k = date.toDateString();
+  var p = date.getHours();
+  var m = date.getMinutes();
+  var s = date.getSeconds();
+  if(p < 10 & m <10) {
+    var tm = "0"+p+":"+"0"+m;
+  } else if (p < 10 & m >=10) {
+    var tm = "0"+p+":"+m;
+  } else if(p >= 10 & m < 10) {
+    var tm = p+":"+"0"+m;
+  } else {
+    var tm = p+":"+m;
+  }
+  if(s >= 10) {
+  	var tz = tm+":"+s; 
+  } else {
+  	var tz = tm+":"+"0"+s;
+  }
+  window.localStorage.setItem('date',k);
+  window.localStorage.setItem('time',tz);
+  var time = window.localStorage.getItem('time');
+  console.log(time)
+     $("#track").click();
+	},t);
+})
+$("#logout").click(function(){
+	window.localStorage.removeItem('userid');
+	window.localStorage.removeItem('ti');
+})
+setInterval(function(){
+var value = window.localStorage.getItem('userid');
+if(value != null) {
+	return false;
+} else {
+	window.location.href="index.html";
+}
+},1)
+} else {
+	window.location.href="index.html";
+}
+		})
+	</script>
+	<style type="text/css">
+	body,html {
+	background-image: url(index.jpg);
+	height:100%;
+	width:100%;
+	background-size: cover;	
+}
+
+		#track,#logout,#showTable,#send {
+			height:50px;
+			width:80%;
+			border:none;
+			border-radius: 100%;
+			margin-top: 30px;
+		}
+		#atrack {
+			height:50px;
+			width:80%;
+			border:none;
+			border-radius: 100%;
+			margin-top: 30px;
+		}
+		#pid {
+			color: grey;
+			font-weight: bold;
+		}
+		#uid, #ucid {
+			margin-top: 20px;
+			color: white;
+			font-weight: bold;
+			font-size: 20px;
+		}
+		#developer {
+			margin-top: 20px;
+			color: grey;
+
+		}
+	</style>
+</head>
+<body>
+<center>
+<p id="ucid">Employee Tracking System</p>
+<p id="uid"><script type="text/javascript">
+	var name = atob(window.localStorage.getItem('username'));
+	document.write("Welcome"+" "+name);
+</script></p>
+<p id="pid"></p>
+<div id="hiding">
+<button id="atrack">Auto Track</button>
+<button id="track" onClick="getLocation()">Track my location</button>
+<button id="timeout"></button>
+<button id="send">Send Location</button>
+<button id="logout">Logout</button>
+</div>
+<div id="developer">Developed by Sheshant Sinha</div>
+</center>
+</body>
+</html>
